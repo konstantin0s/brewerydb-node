@@ -68,9 +68,9 @@ router.get('/locations', function (req, res, next) {
 
   axios.get(`${apiUrl}/locations`, options).then(function (response) {
     // res.send(response.data);
-    var body = response.data;
-    res.json(body);
-    // console.log(body)
+    // var body = response.data;
+    res.json(response.data);
+    console.log(response.data);
     // res.render('locations', {body: body})
   })
 });
@@ -79,27 +79,27 @@ router.get('/locations', function (req, res, next) {
 
 
 
-//Search brewery by id and location
-// router.get('/brewery/:id', function (req, res, next) {
-//   const options = {
-//     params: {
-//       key: apiKey
-//     },
-//       withCredentials: true
-//   }
+// Search brewery by id and location
+router.get('/brewery/:id/locations', function (req, res, next) {
+  const options = {
+    params: {
+      key: apiKey,
+      breweryId: req.params.breweryId
+    },
+      withCredentials: true
+  }
 
-//   axios.get(`${apiUrl}/brewery/${req.params.id}/locations`, options)
-//   .then(function (response) {
-//       // res.send(response.data);
-//       console.log(response);
-//       console.log(req.params.id);
-//       var body = response.data.data;
-//       res.json(body);
-//       console.log(body);
-//     })
-//     .catch(function (error) {
-//       res.status(404).send();
-//     });
-// });
+  axios.get(`${apiUrl}/brewery/${req.params.id}/locations`, options)
+  .then(function (response) {
+      // res.send(response.data);
+      console.log(response);
+      console.log(req.params.id);
+      res.json(response.data);
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      res.status(404).send();
+    });
+});
 
 module.exports = router;
